@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3b82f6">
+    <title>Memorama de Números</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Tone.js para efectos de sonido -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script src="script.js"></script>
+    <!-- Manifest.json -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Carga de una fuente amigable para niños (Nunito) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-blue-100 min-h-screen flex items-center justify-center p-4">
+    
+    <!-- 
+    MÚSICA DE FONDO
+    Para agregar música de fondo, descomenta la siguiente línea 
+    y reemplaza 'tu_musica.mp3' con el enlace (URL) a tu archivo de música.
+    'autoplay' puede ser bloqueado por el navegador. 'loop' hará que se repita.
+    
+    <audio src="tu_musica.mp3" autoplay loop style="display:none"></audio>
+    -->
+    <audio id="musicPlayer" autoplay style="display:none"></audio>
+    <!-- Contenedor principal del juego -->
+    <main class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6 sm:p-8">
+        
+        <!-- Menú de Inicio -->
+        <div id="start-menu" class="text-center flex flex-col items-center justify-center min-h-[500px]">
+            <h1 class="text-5xl font-black text-blue-700 mb-8">
+                Memorama de Números
+            </h1>
+            <p class="text-2xl text-gray-600 mb-10">¡Encuentra todos los pares!</p>
+            <button id="start-game-button" class="w-full max-w-xs px-8 py-4 bg-green-500 text-white text-2xl font-bold rounded-xl shadow-lg hover:bg-green-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300">
+                Empezar Juego
+            </button>
+        </div>
+
+        <!-- Contenedor del Juego (oculto al inicio) -->
+        <div id="game-container" class="hidden">
+            <!-- Encabezado con Título y Temporizador -->
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-2">
+                <h1 class="text-3xl sm:text-4xl font-black text-center sm:text-left text-blue-700">
+                    Memorama de Números
+                </h1>
+                <div class="text-2xl font-bold text-gray-700 text-center sm:text-right">
+                    Temporizador: <span id="timer">00:00:00</span>
+                </div>
+            </div>
+
+            <!-- Tablero del juego -->
+            <!-- *** INICIO DE SECCIÓN CORREGIDA *** -->
+            <!-- Usamos un grid responsivo: 4 columnas en móvil, 6 en pantallas más grandes -->
+            <div id="game-board" class="grid grid-cols-4 sm:grid-cols-6 gap-3 sm:gap-4 justify-center">
+                <!-- Las tarjetas se generarán aquí con JavaScript -->
+            </div>
+
+            <!-- Ranking -->
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold text-center text-indigo-600 mb-4">🏆 Ranking de Tiempos 🏆</h2>
+                <ol id="ranking-list" class="list-decimal list-inside bg-gray-100 p-4 rounded-lg max-h-40 overflow-y-auto">
+                    <li class="text-gray-500 text-center">¡Sé el primero en jugar!</li>
+                </ol>
+            </div>
+            <!-- *** FIN DE SECCIÓN CORREGIDA *** -->
+
+
+            <!-- Contenedor para mensajes y el botón de reinicio -->
+            <div id="game-feedback" class="text-center mt-6 min-h-[10rem] flex flex-col justify-center items-center">
+                
+                <!-- Mensaje de "¡Ganaste!" (oculto al inicio) -->
+                <div id="win-message" class="hidden w-full">
+                    <p class="text-3xl font-black text-green-500">¡Ganaste! 🎉</p>
+                    <p class="text-xl text-gray-700 mt-2">Tu tiempo: <span id="final-time">00:00:00</span></p>
+                    
+                    <!-- Formulario para guardar récord (oculto al inicio) -->
+                    <div id="score-form" class="hidden mt-4 flex flex-col sm:flex-row justify-center items-center gap-2">
+                        <input type="text" id="player-name" placeholder="Escribe tu nombre" class="text-center w-full sm:w-auto px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" maxlength="15">
+                        <button id="save-score-button" class="w-full sm:w-auto px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-7V00 transition">
+                            Guardar Récord
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Botón para Jugar de Nuevo (oculto al inicio) -->
+                <button id="reset-button" class="hidden w-full max-w-xs mt-4 px-6 py-3 bg-green-500 text-white text-xl font-bold rounded-xl shadow-lg focus:outline-none focus:ring-4 focus:ring-green-300">
+                    Jugar de Nuevo
+                </button>
+            </div>
+        </div> <!-- Fin de game-container -->
+
+    </main>
+
+
+</body>
+</html>
